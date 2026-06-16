@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+:root {
+  /* ——— Ultra-Luxury Color System (Black/Titanium) ——— */
+  --bg-primary: #050505;
+  --bg-surface: #0B0B0B;
+  --bg-elevated: #0F0F0F;
+  --bg-card: #0A0A0A;
+
+  --text-primary: #F5F5F0;
+  --text-secondary: #D8D8D8;
+  --text-tertiary: #7A7A7A;
+  --text-faint: #333333;
+
+  --titanium: #A0A0A0;
+  --titanium-dark: #404040;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  --font-luxury: "Neue Montreal Light", "PP Neue Machina", "Söhne", "Helvetica Now Display", "Founders Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-luxury);
+  --font-body: var(--font-luxury);
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-card: var(--bg-card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-faint: var(--text-faint);
+  --color-titanium: var(--titanium);
+  --color-border-subtle: var(--border-subtle);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+/* ===== BASE RESET ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-faint);
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+/* ===== LUXURY UTILITIES ===== */
+.heading-editorial {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.heading-editorial-sm {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.text-editorial-caption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.button-minimal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  border-radius: 0;
+}
+
+.button-minimal:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.border-bottom-minimal {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ===== SPACING (Extreme Whitespace) ===== */
+.section-padding {
+  padding: 10rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 14rem 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-padding {
+    padding: 18rem 8rem;
+  }
+}
+
+/* ===== SIDEBAR SAFE ZONE ===== */
+.sidebar-safe {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .sidebar-safe {
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .sidebar-safe {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
