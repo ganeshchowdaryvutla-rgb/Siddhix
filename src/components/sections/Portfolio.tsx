@@ -58,7 +58,7 @@ function ProjectCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
+      <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
         {/* Actual Project Image */}
         <div className={`absolute inset-0 transition-transform duration-1000 ease-[0.16,1,0.3,1] ${isHovered ? "scale-105" : "scale-100"}`}>
           <img
@@ -183,7 +183,7 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-20 sidebar-safe px-6 xl:px-0">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 md:gap-y-20 sidebar-safe px-6 xl:px-0">
         {projects.map((project, index) => (
           <div
             key={project.title}

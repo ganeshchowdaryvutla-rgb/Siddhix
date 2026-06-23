@@ -237,7 +237,7 @@ export default function HeroSequence() {
       <div ref={containerRef} className="relative" style={{ height: "600vh" }}>
         <div
           ref={canvasWrapperRef}
-          className="sticky top-0 left-0 w-full h-screen z-0 overflow-hidden"
+          className="sticky top-0 left-0 w-full h-[100dvh] z-0 overflow-hidden"
         >
           <canvas ref={canvasRef} className="block" style={{ willChange: "contents" }} />
 
@@ -250,7 +250,7 @@ export default function HeroSequence() {
           </div>
 
           {/* ——— Story Captions ——— */}
-          <div className="absolute bottom-28 sm:bottom-36 left-0 right-0 flex items-center justify-center pointer-events-none px-6">
+          <div className="absolute bottom-16 sm:bottom-36 left-0 right-0 flex items-center justify-center pointer-events-none px-6">
             {STORY_SEGMENTS.map((segment, i) => (
               <div
                 key={i}
