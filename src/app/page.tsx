@@ -28,11 +28,16 @@ export default function Home() {
         <Hero />
 
         {/* ——— Content Sections ——— */}
-        <div className="relative z-20 bg-[var(--bg-primary)]">
+        <div className="relative z-20 bg-[var(--bg-primary)] flex flex-col gap-32 md:gap-[12rem] lg:gap-[16rem] pt-16 md:pt-32">
           <Services />
           <LogoBreak />
           <Portfolio />
-          <Stats />
+          
+          {/* Massive extra gap between Portfolio and Process */}
+          <div className="mt-[4rem] md:mt-[8rem] lg:mt-[12rem] mb-[4rem] md:mb-[8rem] lg:mb-[12rem]">
+            <Stats />
+          </div>
+          
           <Process />
           <LogoBreak />
           <Testimonials />

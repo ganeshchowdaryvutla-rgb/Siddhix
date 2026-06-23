@@ -115,7 +115,7 @@ export default function Services() {
       className="relative z-20 bg-[var(--bg-primary)] py-24 sm:py-32 md:py-40 overflow-hidden"
     >
       {/* Section Header */}
-      <div ref={ref} className="max-w-7xl mx-auto mb-24 sidebar-safe">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-8 mb-16 md:mb-24 sidebar-safe">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -128,7 +128,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-5xl md:text-6xl lg:text-7xl text-[var(--text-primary)] max-w-3xl"
+          className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)] max-w-3xl"
         >
           Engineering The
           <br />
@@ -137,7 +137,7 @@ export default function Services() {
       </div>
 
       {/* Services Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 sidebar-safe">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 sidebar-safe">
         {services.map((service, index) => (
           <ServiceCard key={service.title} service={service} index={index} />
         ))}

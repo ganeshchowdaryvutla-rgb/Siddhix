@@ -31,7 +31,7 @@ export default function Testimonials() {
   return (
     <section className="relative z-20 section-padding bg-[var(--bg-surface)] overflow-hidden">
 
-      <div ref={ref} className="max-w-7xl mx-auto px-6 mb-24 text-center">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-8 mb-16 md:mb-24 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -44,7 +44,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-5xl md:text-6xl lg:text-7xl text-[var(--text-primary)]"
+          className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)]"
         >
           Trusted By Industry
           <br />
@@ -52,7 +52,7 @@ export default function Testimonials() {
         </motion.h2>
       </div>
 
-      <div className="max-w-7xl mx-auto sidebar-safe">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 sidebar-safe">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((item, index) => (
             <motion.div

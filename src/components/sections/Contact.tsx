@@ -30,7 +30,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative z-20 section-padding bg-[var(--bg-primary)] overflow-hidden">
-      <div ref={ref} className="max-w-7xl mx-auto sidebar-safe grid grid-cols-1 lg:grid-cols-2 gap-20">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-8 sidebar-safe grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         {/* Left: Copy */}
         <div>
           <motion.p
@@ -45,7 +45,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="heading-editorial text-5xl md:text-6xl lg:text-7xl text-[var(--text-primary)] mb-8"
+            className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)] mb-6 md:mb-8"
           >
             Ready To
             <br />
@@ -89,7 +89,7 @@ export default function Contact() {
           className="relative"
         >
           <form
-            className="relative p-8 md:p-12 rounded-[32px] bg-white/[0.01] border border-white/[0.03] flex flex-col gap-8 backdrop-blur-sm"
+            className="relative p-6 md:p-12 rounded-[24px] md:rounded-[32px] bg-white/[0.01] border border-white/[0.03] flex flex-col gap-6 md:gap-8 backdrop-blur-sm"
             onSubmit={handleSubmit}
           >
             <div className="flex flex-col gap-2">

@@ -111,7 +111,7 @@ export default function Process() {
       className="relative z-20 bg-[var(--bg-primary)] pt-[8rem] md:pt-[14rem] pb-24 md:pb-[10rem] overflow-hidden"
     >
       {/* Section Header */}
-      <div ref={headerRef} className="max-w-7xl mx-auto mb-32 text-center sidebar-safe">
+      <div ref={headerRef} className="max-w-7xl mx-auto px-6 md:px-8 mb-16 md:mb-32 text-center sidebar-safe">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -124,7 +124,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 30 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-5xl md:text-6xl lg:text-7xl text-[var(--text-primary)]"
+          className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)]"
         >
           The Blueprint For
           <br />

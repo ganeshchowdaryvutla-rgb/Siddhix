@@ -2,34 +2,35 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const projects = [
   {
     title: "Spam Email Protection",
     category: "Cybersecurity Automation",
     description: "An advanced, machine learning-driven email security platform that detects and neutralizes sophisticated phishing and spam campaigns in real-time.",
-    imageColor: "from-[#0A0A0A] to-[#141414]",
+    image: "/projects/cybersecurity.png",
     tags: ["Machine Learning", "Threat Detection", "API Integration"],
   },
   {
     title: "Croptrace",
     category: "AgriTech Software",
     description: "A comprehensive supply chain traceability platform for the agriculture industry, ensuring transparency from farm to consumer.",
-    imageColor: "from-[#111111] to-[#0A0A0A]",
+    image: "/projects/agritech.png",
     tags: ["Supply Chain", "Data Analytics", "Next.js"],
   },
   {
     title: "Lead Generation Tool Dealclose",
     category: "Sales Automation",
     description: "A high-performance lead generation and closing pipeline tool that automates outreach, tracks engagement, and optimizes conversion rates.",
-    imageColor: "from-[#0D0D0D] to-[#1A1A1A]",
+    image: "/projects/sales.png",
     tags: ["CRM System", "Workflow Automation", "React"],
   },
   {
     title: "Personal Portfolio",
     category: "Web Development",
     description: "A modern, highly optimized personal portfolio website featuring smooth scroll animations, 3D elements, and a premium editorial aesthetic.",
-    imageColor: "from-[#111111] to-[#0A0A0A]",
+    image: "/projects/portfolio.png",
     tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
   },
 ];
@@ -58,13 +59,17 @@ function ProjectCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
-        {/* Placeholder gradient mimicking a premium asset */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${project.imageColor} transition-transform duration-1000 ease-[0.16,1,0.3,1] ${
-            isHovered ? "scale-105" : "scale-100"
-          }`}
-        />
+      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
+        {/* Actual Project Image */}
+        <div className={`absolute inset-0 transition-transform duration-1000 ease-[0.16,1,0.3,1] ${isHovered ? "scale-105" : "scale-100"}`}>
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
         
         {/* Hover overlay with 'View Case Study' text */}
         <div
@@ -143,7 +148,7 @@ export default function Portfolio() {
       id="portfolio"
       className="relative z-20 bg-[var(--bg-primary)] pt-24 md:pt-[10rem] pb-[8rem] md:pb-[14rem] overflow-hidden"
     >
-      <div ref={ref} className="max-w-7xl mx-auto mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 sidebar-safe">
+      <div ref={ref} className="max-w-5xl mx-auto mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 sidebar-safe px-6 xl:px-0">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -181,7 +186,7 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 sidebar-safe">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-20 sidebar-safe px-6 xl:px-0">
         {projects.map((project, index) => (
           <div
             key={project.title}

@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 222;
 const FRAME_PATH = "/frames/ezgif-frame-";
+const FRAME_EXT = ".webp";
 
 function padNumber(num: number): string {
   return String(num).padStart(3, "0");
@@ -34,7 +35,7 @@ export default function HeroSequence() {
 
   const getDevicePixelRatio = useCallback(() => {
     return typeof window !== "undefined"
-      ? Math.min(window.devicePixelRatio || 1, 2)
+      ? Math.max(window.devicePixelRatio || 1, 1)
       : 1;
   }, []);
 
@@ -44,6 +45,8 @@ export default function HeroSequence() {
       if (!canvas) return;
       const ctx = canvas.getContext("2d", { alpha: false });
       if (!ctx) return;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
 
       const images = imagesRef.current;
       const clampedIndex = Math.max(0, Math.min(index, FRAME_COUNT - 1));
@@ -113,7 +116,7 @@ export default function HeroSequence() {
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.decoding = "async";
-      img.src = `${FRAME_PATH}${padNumber(i + 1)}.jpg`;
+      img.src = `${FRAME_PATH}${padNumber(i + 1)}${FRAME_EXT}`;
       img.onload = () => {
         if (cancelled) return;
         loadedCount++;
@@ -165,7 +168,7 @@ export default function HeroSequence() {
             ease: "power2.inOut",
             scrollTrigger: {
               trigger: container,
-              start: "85% top",
+              start: "95% top",
               end: "100% top",
               scrub: true,
             },
@@ -231,7 +234,7 @@ export default function HeroSequence() {
       )}
 
       {/* ——— Scroll Container ——— */}
-      <div ref={containerRef} className="relative" style={{ height: "450vh" }}>
+      <div ref={containerRef} className="relative" style={{ height: "600vh" }}>
         <div
           ref={canvasWrapperRef}
           className="sticky top-0 left-0 w-full h-screen z-0 overflow-hidden"
