@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 
 const projects = [
   {
@@ -62,12 +61,10 @@ function ProjectCard({
       <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
         {/* Actual Project Image */}
         <div className={`absolute inset-0 transition-transform duration-1000 ease-[0.16,1,0.3,1] ${isHovered ? "scale-105" : "scale-100"}`}>
-          <Image
+          <img
             src={project.image}
             alt={project.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            className="w-full h-full object-cover"
           />
         </div>
         
