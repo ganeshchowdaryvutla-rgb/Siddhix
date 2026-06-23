@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://siddhix.vercel.app"),
+  metadataBase: new URL("https://siddhix.online"),
   title: {
     default: "AI Automation Agency | n8n, Zapier, Make & Full Stack Development | SiddhiX",
     template: "%s | SiddhiX"
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "SiddhiX helps businesses automate workflows, generate leads, build AI-powered systems, and develop modern web & mobile applications using n8n, Zapier, Make, OpenAI, Flutter, and Full Stack technologies.",
   applicationName: "SiddhiX Agency",
-  authors: [{ name: "SiddhiX", url: "https://siddhix.vercel.app" }],
+  authors: [{ name: "SiddhiX", url: "https://siddhix.online" }],
   generator: "Next.js",
   keywords: [
     "AI Automation Agency",
