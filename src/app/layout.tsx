@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Automation Agency | n8n, Zapier, Make & Full Stack Development | SiddhiX",
+  metadataBase: new URL("https://siddhix.vercel.app"),
+  title: {
+    default: "AI Automation Agency | n8n, Zapier, Make & Full Stack Development | SiddhiX",
+    template: "%s | SiddhiX"
+  },
   description:
     "SiddhiX helps businesses automate workflows, generate leads, build AI-powered systems, and develop modern web & mobile applications using n8n, Zapier, Make, OpenAI, Flutter, and Full Stack technologies.",
+  applicationName: "SiddhiX Agency",
+  authors: [{ name: "SiddhiX", url: "https://siddhix.vercel.app" }],
+  generator: "Next.js",
   keywords: [
     "AI Automation Agency",
     "Business Automation Services",
@@ -72,11 +79,51 @@ export const metadata: Metadata = {
     "Full Stack Developer India",
     "Business Automation Services India",
   ],
+  referrer: "origin-when-cross-origin",
+  creator: "SiddhiX",
+  publisher: "SiddhiX",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "AI Automation Agency | n8n, Zapier, Make & Full Stack Development | SiddhiX",
     description:
       "SiddhiX helps businesses automate workflows, generate leads, build AI-powered systems, and develop modern web & mobile applications.",
+    url: "https://siddhix.vercel.app",
+    siteName: "SiddhiX",
+    images: [
+      {
+        url: "/projects/portfolio.png",
+        width: 1200,
+        height: 630,
+        alt: "SiddhiX - AI Automation Agency",
+      },
+    ],
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Automation Agency | SiddhiX",
+    description:
+      "SiddhiX helps businesses automate workflows, generate leads, build AI-powered systems, and develop modern web & mobile applications.",
+    images: ["/projects/portfolio.png"],
   },
 };
 
