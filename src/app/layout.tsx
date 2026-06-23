@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   authors: [{ name: "SiddhiX", url: "https://siddhix.online" }],
   generator: "Next.js",
   keywords: [
+    "siddhix",
+    "siddhix agency",
+    "siddhix automation agency",
     "AI Automation Agency",
     "Business Automation Services",
     "n8n Automation Expert",

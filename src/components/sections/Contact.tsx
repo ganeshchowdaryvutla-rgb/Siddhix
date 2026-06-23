@@ -1,12 +1,19 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
+import { PopupButton } from "react-calendly";
 import MagneticButton from "../MagneticButton";
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -182,6 +189,23 @@ export default function Contact() {
                 Send Request
               </button>
             </MagneticButton>
+
+            {mounted && (
+              <>
+                <div className="flex items-center justify-center pt-2 pb-2">
+                  <div className="w-full h-px bg-white/[0.08]" />
+                  <span className="px-4 text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">OR</span>
+                  <div className="w-full h-px bg-white/[0.08]" />
+                </div>
+                
+                <PopupButton
+                  url="https://calendly.com/ganeshchowdaryvutla/30min"
+                  rootElement={document.body}
+                  text="Book a Discovery Call"
+                  className="w-full py-4 rounded-full border border-white/[0.1] text-[var(--text-primary)] font-medium text-sm tracking-wide hover:bg-white/[0.05] transition-colors duration-500"
+                />
+              </>
+            )}
           </form>
         </motion.div>
       </div>
