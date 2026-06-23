@@ -22,17 +22,46 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`New Project Inquiry: ${formState.applicationType || "General"} - ${formState.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formState.name}\n` +
-      `Email: ${formState.email}\n` +
-      `Application Type: ${formState.applicationType}\n` +
-      `Budget: ${formState.budget}\n\n` +
-      `Project Details:\n${formState.message}`
-    );
-    window.location.href = `mailto:siddhixagency@gmail.com?subject=${subject}&body=${body}`;
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/siddhixagency@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Project Inquiry from ${formState.name}`,
+          name: formState.name,
+          email: formState.email,
+          applicationType: formState.applicationType || "General",
+          budget: formState.budget,
+          message: formState.message
+        })
+      });
+
+      if (response.ok) {
+        alert("Your request has been sent successfully! We will get back to you soon.");
+        setFormState({
+          name: "",
+          email: "",
+          applicationType: "",
+          budget: "",
+          message: "",
+        });
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      alert("Error sending message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -184,9 +213,10 @@ export default function Contact() {
             <MagneticButton>
               <button
                 type="submit"
-                className="w-full py-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] font-medium text-sm tracking-wide hover:bg-[var(--text-secondary)] transition-colors duration-500"
+                disabled={isSubmitting}
+                className={`w-full py-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] font-medium text-sm tracking-wide transition-colors duration-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--text-secondary)]"}`}
               >
-                Send Request
+                {isSubmitting ? "Sending..." : "Send Request"}
               </button>
             </MagneticButton>
 
