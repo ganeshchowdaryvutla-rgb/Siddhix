@@ -67,10 +67,15 @@ export default function HeroSequence() {
       const isPortrait = ch > cw;
 
       if (isPortrait) {
-        // Mobile Vertical: Use "contain" behavior to show the full animation horizontally
-        // We multiply by 1.1 so it's not too tiny, but still shows 90%+ of the frame
-        dw = cw * 1.1;
-        dh = dw / imgRatio;
+        // Mobile Vertical: Use strict "contain" behavior with 90% scale 
+        // to ensure the logo is fully visible with some breathing room.
+        if (canvasRatio > imgRatio) {
+          dh = ch * 0.9;
+          dw = dh * imgRatio;
+        } else {
+          dw = cw * 0.9;
+          dh = dw / imgRatio;
+        }
         dx = (cw - dw) / 2;
         dy = (ch - dh) / 2;
       } else {
