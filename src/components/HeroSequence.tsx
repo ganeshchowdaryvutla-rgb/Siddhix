@@ -64,16 +64,28 @@ export default function HeroSequence() {
       const canvasRatio = cw / ch;
 
       let dw: number, dh: number, dx: number, dy: number;
-      if (canvasRatio > imgRatio) {
-        dw = cw;
-        dh = cw / imgRatio;
-        dx = 0;
+      const isPortrait = ch > cw;
+
+      if (isPortrait) {
+        // Mobile Vertical: Use "contain" behavior to show the full animation horizontally
+        // We multiply by 1.1 so it's not too tiny, but still shows 90%+ of the frame
+        dw = cw * 1.1;
+        dh = dw / imgRatio;
+        dx = (cw - dw) / 2;
         dy = (ch - dh) / 2;
       } else {
-        dh = ch;
-        dw = ch * imgRatio;
-        dx = (cw - dw) / 2;
-        dy = 0;
+        // Desktop / Landscape: Use standard "cover" behavior
+        if (canvasRatio > imgRatio) {
+          dw = cw;
+          dh = cw / imgRatio;
+          dx = 0;
+          dy = (ch - dh) / 2;
+        } else {
+          dh = ch;
+          dw = ch * imgRatio;
+          dx = (cw - dw) / 2;
+          dy = 0;
+        }
       }
 
       ctx.clearRect(0, 0, cw, ch);

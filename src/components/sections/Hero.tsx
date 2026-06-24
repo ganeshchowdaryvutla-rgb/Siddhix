@@ -60,7 +60,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] tracking-[-0.05em] leading-[0.9] pb-16 mb-8 md:pb-24 md:mb-12"
+          className="heading-editorial text-[2.75rem] leading-[1.1] sm:text-6xl md:text-8xl lg:text-[10rem] tracking-[-0.05em] sm:leading-[0.9] pb-16 mb-8 md:pb-24 md:mb-12 break-words"
         >
           Designing<br />
           Intelligent<br />

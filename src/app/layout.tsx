@@ -109,7 +109,7 @@ export const metadata: Metadata = {
     title: "AI Automation Agency | n8n, Zapier, Make & Full Stack Development | SiddhiX",
     description:
       "SiddhiX helps businesses automate workflows, generate leads, build AI-powered systems, and develop modern web & mobile applications.",
-    url: "https://siddhix.vercel.app",
+    url: "https://siddhix.online",
     siteName: "SiddhiX",
     images: [
       {
