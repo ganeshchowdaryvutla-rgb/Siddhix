@@ -129,30 +129,53 @@ export default function HeroSequence() {
     let loadedCount = 0;
     const images: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
+    let hasStarted = false;
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    // Load fewer frames on mobile to get them into the site instantly
+    const BATCH_SIZE = window.innerWidth < 768 ? 15 : 30;
+
+    const loadRestOfFrames = () => {
+      for (let i = BATCH_SIZE; i < FRAME_COUNT; i++) {
+        if (cancelled) return;
+        const img = new Image();
+        img.decoding = "async";
+        img.src = `${FRAME_PATH}${padNumber(i + 1)}${FRAME_EXT}`;
+        img.onload = () => { if (!cancelled) loadedCount++; };
+        img.onerror = () => { if (!cancelled) loadedCount++; };
+        images[i] = img;
+      }
+    };
+
+    // Load initial batch
+    for (let i = 0; i < BATCH_SIZE; i++) {
       const img = new Image();
       img.decoding = "async";
       img.src = `${FRAME_PATH}${padNumber(i + 1)}${FRAME_EXT}`;
-      img.onload = () => {
+      
+      const onFrameReady = () => {
         if (cancelled) return;
         loadedCount++;
-        setLoadProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
-        if (loadedCount === FRAME_COUNT) {
+        
+        if (!hasStarted) {
+          // Progress bar based on initial batch only
+          setLoadProgress(Math.round((loadedCount / BATCH_SIZE) * 100));
+        }
+
+        if (!hasStarted && loadedCount === BATCH_SIZE) {
+          hasStarted = true;
           setLoaded(true);
           renderFrame(0);
           initScrollAnimation();
+          
+          // Once the experience starts, silently load the remaining frames
+          requestAnimationFrame(() => {
+            loadRestOfFrames();
+          });
         }
       };
-      img.onerror = () => {
-        if (cancelled) return;
-        loadedCount++;
-        if (loadedCount === FRAME_COUNT) {
-          setLoaded(true);
-          renderFrame(0);
-          initScrollAnimation();
-        }
-      };
+
+      img.onload = onFrameReady;
+      img.onerror = onFrameReady;
       images[i] = img;
     }
     imagesRef.current = images;
