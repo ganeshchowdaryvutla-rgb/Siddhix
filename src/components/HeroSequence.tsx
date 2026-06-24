@@ -67,15 +67,13 @@ export default function HeroSequence() {
       const isPortrait = ch > cw;
 
       if (isPortrait) {
-        // Mobile Vertical: Use strict "contain" behavior with 90% scale 
-        // to ensure the logo is fully visible with some breathing room.
-        if (canvasRatio > imgRatio) {
-          dh = ch * 0.9;
-          dw = dh * imgRatio;
-        } else {
-          dw = cw * 0.9;
-          dh = dw / imgRatio;
-        }
+        // Mobile Vertical: The original frames are very wide landscape (16:9).
+        // If we use 'contain' (1.0x width), it looks like a tiny letterbox.
+        // If we use 'cover' (~3.9x width), it completely crops the logo.
+        // We use a sweet spot (e.g., 2.2x width) so the logo fills the screen horizontally
+        // but has a commanding vertical presence (~50% screen height).
+        dw = cw * 2.2;
+        dh = dw / imgRatio;
         dx = (cw - dw) / 2;
         dy = (ch - dh) / 2;
       } else {
