@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 import { PopupButton } from "react-calendly";
 import MagneticButton from "../MagneticButton";
@@ -9,6 +10,7 @@ export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -46,14 +48,7 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        alert("Your request has been sent successfully! We will get back to you soon.");
-        setFormState({
-          name: "",
-          email: "",
-          applicationType: "",
-          budget: "",
-          message: "",
-        });
+        router.push("/thank-you");
       } else {
         alert("Something went wrong. Please try again.");
       }
