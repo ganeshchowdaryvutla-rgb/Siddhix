@@ -57,50 +57,36 @@ function ServiceCard({
   service: (typeof services)[0];
   index: number;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    cardRef.current.style.setProperty("--mouse-x", `${x}%`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}%`);
-  };
-
   const Icon = service.icon;
 
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 60, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{
-        duration: 0.8,
-        delay: index * 0.1,
+        duration: 1.0,
+        delay: index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      onMouseMove={handleMouseMove}
-      className="service-card group cursor-default"
+      className="service-card group cursor-default flex flex-col justify-between h-full"
     >
-      {/* Icon */}
-      <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-8 group-hover:border-white/[0.15] group-hover:bg-white/[0.05] transition-all duration-500">
-        <Icon className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors duration-500" strokeWidth={1.5} />
+      <div>
+        {/* Icon */}
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-[var(--accent-light)] group-hover:border-[var(--accent)]/20 transition-all duration-400">
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors duration-400" strokeWidth={1.5} />
+        </div>
+
+        {/* Title */}
+        <h3 className="text-h3 text-[var(--text-primary)] mb-2 sm:mb-3">
+          {service.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-body leading-relaxed">
+          {service.description}
+        </p>
       </div>
-
-      {/* Title */}
-      <h3 className="heading-editorial-sm text-xl text-[var(--text-primary)] mb-4">
-        {service.title}
-      </h3>
-
-      {/* Description */}
-      <p className="text-[15px] text-[var(--text-tertiary)] leading-relaxed font-light">
-        {service.description}
-      </p>
-
-      {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
     </motion.div>
   );
 }
@@ -112,32 +98,31 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative z-20 bg-[var(--bg-primary)] py-24 sm:py-32 md:py-40 overflow-hidden"
+      className="relative z-20 bg-[var(--bg-primary)] py-16 sm:py-24 md:py-32 overflow-hidden"
     >
       {/* Section Header */}
-      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-8 mb-16 md:mb-24 sidebar-safe">
+      <div ref={ref} className="max-w-6xl mx-auto px-5 sm:px-6 md:px-8 mb-10 sm:mb-14 md:mb-20">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs tracking-[0.4em] uppercase text-[var(--text-tertiary)] mb-6 font-light"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-caption text-[var(--accent)] mb-3 sm:mb-4"
         >
           Our Capabilities
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)] max-w-3xl"
+          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="text-h2 text-[var(--text-primary)] max-w-2xl"
         >
-          Engineering The
-          <br />
-          <span className="text-[var(--text-secondary)]">Future Of Work</span>
+          Engineering the{" "}
+          <span className="text-[var(--text-tertiary)]">future of work</span>
         </motion.h2>
       </div>
 
       {/* Services Grid */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 sidebar-safe">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
         {services.map((service, index) => (
           <ServiceCard key={service.title} service={service} index={index} />
         ))}

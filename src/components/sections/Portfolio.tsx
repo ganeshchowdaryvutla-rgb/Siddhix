@@ -5,6 +5,14 @@ import { motion, useInView } from "framer-motion";
 
 const projects = [
   {
+    title: "Sri Annapurna Health Foods",
+    category: "E-Commerce Web Application",
+    description: "Our very first website: a premium, responsive e-commerce web application engineered for a modern health food brand.",
+    image: "/projects/annapurna.png",
+    tags: ["E-Commerce", "React", "Tailwind CSS"],
+    link: "https://sri-annapurna-health-foods.web.app",
+  },
+  {
     title: "Spam Email Protection",
     category: "Cybersecurity Automation",
     description: "An advanced, machine learning-driven email security platform that detects and neutralizes sophisticated phishing and spam campaigns in real-time.",
@@ -43,96 +51,93 @@ function ProjectCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.8,
-        delay: index * 0.15,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className="group relative cursor-pointer"
+  const CardContent = (
+    <div
+      className="group relative cursor-pointer h-full flex flex-col justify-between"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Container */}
-      <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-2xl overflow-hidden mb-8 border border-white/[0.04]">
-        {/* Actual Project Image */}
-        <div className={`absolute inset-0 transition-transform duration-1000 ease-[0.16,1,0.3,1] ${isHovered ? "scale-105" : "scale-100"}`}>
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        
-        {/* Hover overlay with 'View Case Study' text */}
-        <div
-          className={`absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center transition-opacity duration-500 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <span className="px-6 py-3 rounded-full border border-white/10 text-white text-sm font-medium tracking-wide translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-[0.16,1,0.3,1]">
-            View Case Study
-          </span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex justify-between items-start">
-        <div className="max-w-[75%]">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[var(--text-tertiary)] mb-3 font-medium">
-            {project.category}
-          </p>
-          <h3 className="heading-editorial-sm text-2xl lg:text-3xl text-[var(--text-primary)] mb-4 transition-colors duration-300">
-            {project.title}
-          </h3>
-          <p className="text-sm text-[var(--text-tertiary)] font-light leading-relaxed mb-6">
-            {project.description}
-          </p>
-          
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.04] text-[11px] text-[var(--text-secondary)] tracking-wide"
-              >
-                {tag}
-              </span>
-            ))}
+      <div>
+        {/* Image Container */}
+        <div className="relative w-full aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6 border border-[var(--border-subtle)] shadow-[var(--shadow-sm)] group-hover:shadow-[var(--shadow-lg)] transition-shadow duration-500">
+          <div className={`absolute inset-0 transition-transform duration-700 ease-[0.16,1,0.3,1] ${isHovered ? "scale-105" : "scale-100"}`}>
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-        </div>
-        
-        {/* Arrow Icon */}
-        <div
-          className={`w-12 h-12 rounded-full border border-white/[0.05] flex items-center justify-center transition-all duration-500 ${
-            isHovered
-              ? "bg-[var(--text-primary)] border-[var(--text-primary)]"
-              : "bg-transparent"
-          }`}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            className={`transition-transform duration-500 ${
-              isHovered ? "translate-x-1 -translate-y-1 text-[var(--bg-primary)]" : "text-[var(--text-tertiary)]"
+          
+          {/* Hover overlay */}
+          <div
+            className={`absolute inset-0 bg-[var(--bg-primary)]/40 backdrop-blur-sm flex items-center justify-center transition-opacity duration-400 ${
+              isHovered ? "opacity-100" : "opacity-0"
             }`}
           >
-            <path
-              d="M1 13L13 1M13 1H4M13 1V10"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            <span className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-[var(--bg-elevated)] text-[var(--text-primary)] text-[10px] sm:text-sm font-medium tracking-wide translate-y-3 group-hover:translate-y-0 transition-transform duration-400 ease-[0.16,1,0.3,1] shadow-[var(--shadow-md)]">
+              {project.link ? "Visit Website" : "View Case Study"}
+            </span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div>
+          <p className="text-caption text-[var(--accent)] mb-1.5 sm:mb-2">
+            {project.category}
+          </p>
+          <h3 className="text-h3 text-[var(--text-primary)] mb-2 sm:mb-3">
+            {project.title}
+          </h3>
+          <p className="text-body mb-3 sm:mb-5 line-clamp-3 md:line-clamp-none">
+            {project.description}
+          </p>
         </div>
       </div>
-    </motion.div>
+      
+      <div>
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[9px] sm:text-[11px] text-[var(--text-secondary)] font-medium tracking-wide"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const transitionProps = {
+    initial: { opacity: 0, y: 60, scale: 0.96 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+    viewport: { once: true, margin: "-50px" },
+    transition: {
+      duration: 1.2,
+      delay: index * 0.08,
+      ease: [0.16, 1, 0.3, 1] as const,
+    }
+  };
+
+  return (
+    <motion.a
+      href={project.link || "#"}
+      target={project.link ? "_blank" : "_self"}
+      rel={project.link ? "noopener noreferrer" : ""}
+      className="block h-full"
+      onClick={(e) => {
+        if (!project.link) {
+          e.preventDefault();
+          // Placeholder for future case study modal or page
+          console.log("Case study coming soon!");
+        }
+      }}
+      {...transitionProps}
+    >
+      {CardContent}
+    </motion.a>
   );
 }
 
@@ -143,51 +148,51 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative z-20 bg-[var(--bg-primary)] pt-24 md:pt-[10rem] pb-[8rem] md:pb-[14rem] overflow-hidden"
+      className="relative z-20 bg-[var(--bg-primary)] pt-16 sm:pt-24 md:pt-32 pb-16 sm:pb-24 md:pb-32 overflow-hidden"
     >
-      <div ref={ref} className="max-w-5xl mx-auto mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 sidebar-safe px-6 xl:px-0">
+      <div ref={ref} className="max-w-5xl mx-auto mb-10 sm:mb-14 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 px-5 sm:px-6 xl:px-0">
         <div>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs tracking-[0.4em] uppercase text-[var(--text-tertiary)] mb-6 font-light"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-caption text-[var(--accent)] mb-3 sm:mb-4"
           >
             Selected Works
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="heading-editorial text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[var(--text-primary)]"
+            transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-h2 text-[var(--text-primary)]"
           >
-            Engineered For
-            <br />
-            <span className="text-[var(--text-secondary)]">Excellence</span>
+            Engineered for{" "}
+            <span className="text-[var(--text-tertiary)]">excellence</span>
           </motion.h2>
         </div>
         
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <a
             href="#"
-            className="group inline-flex items-center gap-3 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors tracking-wide"
+            onClick={(e) => e.preventDefault()}
+            className="group inline-flex items-center gap-3 text-[13px] sm:text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors font-medium"
           >
             View All Projects
-            <span className="w-8 h-[1px] bg-[var(--text-tertiary)] group-hover:w-12 group-hover:bg-[var(--text-primary)] transition-all duration-500" />
+            <span className="w-6 sm:w-8 h-[1.5px] bg-[var(--text-faint)] group-hover:w-10 sm:group-hover:w-12 group-hover:bg-[var(--accent)] transition-all duration-400" />
           </a>
         </motion.div>
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 md:gap-y-20 sidebar-safe px-6 xl:px-0">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-10 gap-y-10 sm:gap-y-14 px-5 sm:px-6 xl:px-0">
         {projects.map((project, index) => (
           <div
             key={project.title}
-            className={index === 1 ? "md:mt-32" : ""}
+            className={index === 1 ? "sm:mt-16 md:mt-24" : ""}
           >
             <ProjectCard project={project} index={index} />
           </div>

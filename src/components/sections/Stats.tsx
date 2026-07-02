@@ -32,14 +32,13 @@ function Counter({
     if (!isInView) return;
 
     let startTime: number;
-    const duration = 2000; // 2 seconds
+    const duration = 2000;
 
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime;
       const progress = (currentTime - startTime) / duration;
 
       if (progress < 1) {
-        // Ease out expo
         const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         setCount(Math.floor(numValue * easeProgress).toString());
         requestAnimationFrame(animate);
@@ -56,11 +55,11 @@ function Counter({
   }, [isInView, numValue, delay]);
 
   return (
-    <div className="flex items-baseline">
-      <span className="heading-editorial text-5xl md:text-6xl lg:text-7xl tracking-[-0.03em] text-[var(--text-primary)]">
+    <div className="flex items-baseline justify-center">
+      <span className="text-h1 text-[var(--text-primary)]">
         {count}
       </span>
-      <span className="heading-editorial text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] text-[var(--text-secondary)]">
+      <span className="text-h1 text-[var(--accent)]">
         {suffix}
       </span>
     </div>
@@ -72,31 +71,29 @@ export default function Stats() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="relative z-20 bg-[var(--bg-elevated)] py-[8rem] md:py-[12rem] border-y border-white/[0.02] overflow-hidden">
-      <div ref={ref} className="max-w-7xl mx-auto sidebar-safe relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 divide-x divide-white/[0.04] md:divide-x-0">
+    <section className="relative z-20 bg-[var(--bg-elevated)] py-16 sm:py-20 md:py-24 border-y border-[var(--border-subtle)] overflow-hidden">
+      <div ref={ref} className="max-w-6xl mx-auto px-5 sm:px-6 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
-                duration: 0.8,
-                delay: index * 0.15,
+                duration: 0.6,
+                delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className={`flex flex-col items-center text-center ${
-                index % 2 !== 0 ? "pl-8 md:pl-0" : "pr-8 md:pr-0"
-              }`}
+              className="flex flex-col items-center text-center"
             >
-              <div className="mb-4">
+              <div className="mb-3 sm:mb-4">
                 <Counter
                   value={stat.value}
                   isInView={isInView}
                   delay={index * 0.1}
                 />
               </div>
-              <p className="text-[11px] md:text-xs tracking-[0.3em] uppercase text-[var(--text-secondary)] font-light">
+              <p className="text-caption text-[var(--text-secondary)]">
                 {stat.label}
               </p>
             </motion.div>

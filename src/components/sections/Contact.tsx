@@ -59,53 +59,56 @@ export default function Contact() {
     }
   };
 
+  const inputClasses = "w-full bg-transparent border-b border-[var(--border-strong)] pb-3 text-[var(--text-primary)] placeholder-[var(--text-faint)] focus:outline-none focus:border-[var(--accent)] transition-colors rounded-none text-body";
+  const labelClasses = "text-caption text-[var(--text-secondary)]";
+  const selectClasses = "w-full bg-transparent border-b border-[var(--border-strong)] pb-3 text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors rounded-none cursor-pointer text-body";
+
   return (
-    <section id="contact" className="relative z-20 section-padding bg-[var(--bg-primary)] overflow-hidden">
-      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-8 sidebar-safe grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+    <section id="contact" className="relative z-20 bg-[var(--bg-primary)] py-16 sm:py-24 md:py-32 overflow-hidden">
+      <div ref={ref} className="max-w-6xl mx-auto px-5 sm:px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16">
         {/* Left: Copy */}
         <div>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs tracking-[0.4em] uppercase text-[var(--text-tertiary)] mb-6 font-light"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-caption text-[var(--accent)] mb-3 sm:mb-4"
           >
             Start A Project
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)] mb-6 md:mb-8"
+            transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-h2 text-[var(--text-primary)] mb-4 sm:mb-6"
           >
-            Ready To
-            <br />
-            <span className="text-[var(--text-secondary)]">Automate?</span>
+            Ready to{" "}
+            <span className="text-[var(--text-tertiary)]">automate?</span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base text-[var(--text-secondary)] leading-relaxed max-w-md font-light mb-12"
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="text-body-lg max-w-md mb-8 sm:mb-10"
           >
             Partner with SiddhiX to build enterprise-grade AI systems and custom software that drive scalable growth.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-5"
           >
             <div className="flex flex-col">
-              <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--text-tertiary)] mb-2 font-medium">Email</span>
-              <a href="mailto:siddhixagency@gmail.com" className="text-xl text-[var(--text-primary)] hover:text-[var(--text-secondary)] transition-colors">
+              <span className={labelClasses + " mb-1.5"}>Email</span>
+              <a href="mailto:siddhixagency@gmail.com" className="text-h3 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors break-all sm:break-normal">
                 siddhixagency@gmail.com
               </a>
             </div>
             <div className="flex flex-col">
-              <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--text-tertiary)] mb-2 font-medium">Location</span>
-              <span className="text-xl text-[var(--text-primary)]">
+              <span className={labelClasses + " mb-1.5"}>Location</span>
+              <span className="text-h3 text-[var(--text-primary)]">
                 Global Remote
               </span>
             </div>
@@ -114,93 +117,97 @@ export default function Contact() {
 
           {/* Right: Form */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
           <form
-            className="relative p-6 md:p-12 rounded-[24px] md:rounded-[32px] bg-white/[0.01] border border-white/[0.03] flex flex-col gap-6 md:gap-8 backdrop-blur-sm"
+            className="relative p-6 sm:p-8 md:p-10 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-[var(--shadow-lg)] flex flex-col gap-5 sm:gap-6"
             onSubmit={handleSubmit}
           >
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={formState.name}
-                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                className="w-full bg-transparent border-b border-white/[0.08] pb-3 text-[var(--text-primary)] placeholder-[var(--text-faint)] focus:outline-none focus:border-[var(--text-primary)] transition-colors rounded-none"
-                placeholder="John Doe"
-              />
+            <div className="grid grid-cols-2 gap-5 sm:gap-6">
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="name" className={labelClasses}>
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  value={formState.name}
+                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                  className={inputClasses}
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="email" className={labelClasses}>
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  value={formState.email}
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  className={inputClasses}
+                  placeholder="john@company.com"
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                className="w-full bg-transparent border-b border-white/[0.08] pb-3 text-[var(--text-primary)] placeholder-[var(--text-faint)] focus:outline-none focus:border-[var(--text-primary)] transition-colors rounded-none"
-                placeholder="john@company.com"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="applicationType" className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">
+            <div className="grid grid-cols-2 gap-5 sm:gap-6">
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="applicationType" className={labelClasses}>
                   Application Type
                 </label>
                 <select
                   id="applicationType"
                   value={formState.applicationType}
                   onChange={(e) => setFormState({ ...formState, applicationType: e.target.value })}
-                  className="w-full bg-transparent border-b border-white/[0.08] pb-3 text-[var(--text-primary)] focus:outline-none focus:border-[var(--text-primary)] transition-colors rounded-none cursor-pointer"
+                  className={selectClasses}
                   style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
                 >
-                  <option value="" disabled className="text-black">Select type...</option>
-                  <option value="AI Automation" className="text-black">AI Automation</option>
-                  <option value="Web Platform" className="text-black">Web Platform</option>
-                  <option value="Mobile App" className="text-black">Mobile App</option>
-                  <option value="Enterprise Software" className="text-black">Enterprise Software</option>
-                  <option value="Other" className="text-black">Other</option>
+                  <option value="" disabled>Select type...</option>
+                  <option value="AI Automation">AI Automation</option>
+                  <option value="Web Platform">Web Platform</option>
+                  <option value="Mobile App">Mobile App</option>
+                  <option value="Enterprise Software">Enterprise Software</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="budget" className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="budget" className={labelClasses}>
                   Budget
                 </label>
                 <select
                   id="budget"
                   value={formState.budget}
                   onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
-                  className="w-full bg-transparent border-b border-white/[0.08] pb-3 text-[var(--text-primary)] focus:outline-none focus:border-[var(--text-primary)] transition-colors rounded-none cursor-pointer"
+                  className={selectClasses}
                   style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
                 >
-                  <option value="" disabled className="text-black">Select budget...</option>
-                  <option value="< $10k" className="text-black">&lt; $10k</option>
-                  <option value="$10k - $25k" className="text-black">$10k - $25k</option>
-                  <option value="$25k - $50k" className="text-black">$25k - $50k</option>
-                  <option value="$50k+" className="text-black">$50k+</option>
+                  <option value="" disabled>Select budget...</option>
+                  <option value="< $10k">&lt; $10k</option>
+                  <option value="$10k - $25k">$10k - $25k</option>
+                  <option value="$25k - $50k">$25k - $50k</option>
+                  <option value="$50k+">$50k+</option>
                 </select>
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 mb-4">
-              <label htmlFor="message" className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="message" className={labelClasses}>
                 Project Details
               </label>
               <textarea
                 id="message"
                 value={formState.message}
                 onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                className="w-full bg-transparent border-b border-white/[0.08] pb-3 text-[var(--text-primary)] placeholder-[var(--text-faint)] focus:outline-none focus:border-[var(--text-primary)] transition-colors resize-none min-h-[100px] rounded-none"
+                className={inputClasses + " resize-none min-h-[80px] sm:min-h-[100px]"}
                 placeholder="Tell us about your goals..."
               />
             </div>
@@ -209,7 +216,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] font-medium text-sm tracking-wide transition-colors duration-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--text-secondary)]"}`}
+                className={`w-full button-primary text-sm ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 {isSubmitting ? "Sending..." : "Send Request"}
               </button>
@@ -217,17 +224,17 @@ export default function Contact() {
 
             {mounted && (
               <>
-                <div className="flex items-center justify-center pt-2 pb-2">
-                  <div className="w-full h-px bg-white/[0.08]" />
-                  <span className="px-4 text-[11px] tracking-[0.15em] uppercase text-[var(--text-secondary)] font-medium">OR</span>
-                  <div className="w-full h-px bg-white/[0.08]" />
+                <div className="flex items-center justify-center py-1">
+                  <div className="w-full h-px bg-[var(--border-subtle)]" />
+                  <span className="px-4 text-caption text-[var(--text-tertiary)] whitespace-nowrap">OR</span>
+                  <div className="w-full h-px bg-[var(--border-subtle)]" />
                 </div>
                 
                 <PopupButton
                   url="https://calendly.com/ganeshchowdaryvutla/30min"
                   rootElement={document.body}
                   text="Book a Discovery Call"
-                  className="w-full py-4 rounded-full border border-white/[0.1] text-[var(--text-primary)] font-medium text-sm tracking-wide hover:bg-white/[0.05] transition-colors duration-500"
+                  className="w-full button-secondary text-sm"
                 />
               </>
             )}

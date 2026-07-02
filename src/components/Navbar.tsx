@@ -17,14 +17,12 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const lastScrollRef = useRef(0);
-  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       setScrolled(currentScroll > 60);
 
-      // Auto-hide on scroll down, show on scroll up
       if (currentScroll > lastScrollRef.current && currentScroll > 300) {
         setHidden(true);
       } else {
@@ -34,7 +32,6 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Scrollspy Observer
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -58,6 +55,17 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -73,7 +81,6 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        ref={navRef}
         initial={{ y: -100, opacity: 0 }}
         animate={{
           y: hidden && !mobileOpen ? -100 : 0,
@@ -82,12 +89,12 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
       >
-        <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex justify-center pointer-events-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 flex justify-center pointer-events-auto">
           <div
-            className={`flex items-center justify-between transition-all duration-700 ease-[0.16,1,0.3,1] ${
+            className={`flex items-center justify-between transition-all duration-500 ease-[0.16,1,0.3,1] ${
               scrolled
-                ? "w-full md:w-auto px-6 py-3 rounded-full bg-[#050505]/60 backdrop-blur-md border border-white/[0.05]"
-                : "w-full py-4 bg-transparent border border-transparent"
+                ? "w-full md:w-auto px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[var(--bg-primary)]/70 backdrop-blur-xl border border-[var(--border-subtle)] shadow-[var(--shadow-md)]"
+                : "w-full py-3 sm:py-4 bg-transparent border border-transparent"
             }`}
           >
             {/* Logo */}
@@ -97,128 +104,114 @@ export default function Navbar() {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="heading-editorial-sm text-lg tracking-[-0.03em] flex items-center mr-8"
+              className="text-body-lg font-semibold tracking-[-0.02em] flex items-center mr-4 sm:mr-8"
             >
               <span className="text-[var(--text-primary)]">SIDDHI</span>
-              <span className="text-[var(--titanium)]">X</span>
+              <span className="text-[var(--accent)]">X</span>
             </a>
 
-            {/* Desktop Links removed from here */}
+            {/* Desktop Nav Links */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`px-3 py-1.5 rounded-full text-[13px] font-medium transition-all duration-300 ${
+                    activeSection === link.href
+                      ? "text-[var(--accent)] bg-[var(--accent-light)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)]"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "#contact")}
+                className="ml-2 px-4 py-1.5 rounded-full bg-[var(--text-primary)] text-white text-[13px] font-medium hover:bg-[var(--text-secondary)] transition-colors duration-300"
+              >
+                Get in Touch
+              </a>
+            </div>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden relative z-10 w-10 h-10 flex flex-col items-center justify-center gap-[6px] rounded-full hover:bg-white/[0.05] transition-colors"
+              className="md:hidden relative z-[60] w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-[var(--bg-elevated)] transition-colors"
               aria-label="Toggle menu"
             >
               <motion.span
                 animate={
                   mobileOpen
-                    ? { rotate: 45, y: 7.5, width: 20 }
-                    : { rotate: 0, y: 0, width: 20 }
+                    ? { rotate: 45, y: 6.5, width: 18 }
+                    : { rotate: 0, y: 0, width: 18 }
                 }
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="block h-[1px] bg-white origin-center"
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="block h-[1.5px] bg-[var(--text-primary)] origin-center"
               />
               <motion.span
-                animate={mobileOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: 14 }}
-                transition={{ duration: 0.3 }}
-                className="block h-[1px] bg-white/70 self-end"
+                animate={mobileOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: 12 }}
+                transition={{ duration: 0.25 }}
+                className="block h-[1.5px] bg-[var(--text-secondary)] self-end"
               />
               <motion.span
                 animate={
                   mobileOpen
-                    ? { rotate: -45, y: -7.5, width: 20 }
-                    : { rotate: 0, y: 0, width: 20 }
+                    ? { rotate: -45, y: -6.5, width: 18 }
+                    : { rotate: 0, y: 0, width: 18 }
                 }
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="block h-[1px] bg-white origin-center"
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="block h-[1.5px] bg-[var(--text-primary)] origin-center"
               />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Vertical Left Side Navigation (Desktop) */}
-      <div className="hidden md:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col items-start gap-6 pointer-events-auto z-50">
-        {navLinks.map((link, i) => (
-          <motion.a
-            key={link.label}
-            href={link.href}
-            onClick={(e) => handleNavClick(e, link.href)}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className={`text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-400 ${
-              activeSection === link.href
-                ? "text-[var(--text-primary)] translate-x-2"
-                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:translate-x-2"
-            }`}
-          >
-            {link.label}
-          </motion.a>
-        ))}
-        <motion.div 
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: 24 }}
-          transition={{ duration: 0.8, delay: 0.5 + navLinks.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="h-[1px] bg-white/[0.15] my-2" 
-        />
-        <motion.a
-          href="#contact"
-          onClick={(e) => handleNavClick(e, "#contact")}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 + navLinks.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className={`text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-400 ${
-            activeSection === "#contact"
-              ? "text-[var(--titanium)] translate-x-2"
-              : "text-[var(--text-primary)] hover:text-[var(--titanium)] hover:translate-x-2"
-          }`}
-        >
-          Get in Touch
-        </motion.a>
-      </div>
-
-      {/* Mobile Menu */}
+      {/* Mobile Menu — Full Screen Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-8"
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[55] bg-[var(--bg-primary)]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-5 sm:gap-7 px-6"
           >
             {navLinks.map((link, i) => (
               <motion.a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -15 }}
                 transition={{
-                  delay: i * 0.08,
-                  duration: 0.6,
+                  delay: i * 0.07,
+                  duration: 0.5,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="heading-editorial text-3xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                className={`text-h2 transition-colors ${
+                  activeSection === link.href
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                }`}
               >
                 {link.label}
               </motion.a>
             ))}
-              <motion.a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "#contact")}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 px-10 py-4 rounded-full bg-white/[0.03] border border-white/[0.15] text-[var(--text-primary)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] text-sm tracking-wide transition-all duration-500"
-              >
-                Get in Touch
-              </motion.a>
+            <motion.a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.35, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 button-primary text-sm"
+            >
+              Get in Touch
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>

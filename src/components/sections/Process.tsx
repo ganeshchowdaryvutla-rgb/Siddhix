@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const steps = [
@@ -29,138 +29,75 @@ const steps = [
 function ProcessStep({
   step,
   index,
-  progress,
 }: {
   step: (typeof steps)[0];
   index: number;
-  progress: any;
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  // Calculate when this specific step should light up based on scroll
-  const threshold = index / (steps.length - 1);
-  const opacity = useTransform(
-    progress,
-    [Math.max(0, threshold - 0.2), threshold, Math.min(1, threshold + 0.2)],
-    [0.3, 1, 0.3]
-  );
-  
-  const scale = useTransform(
-    progress,
-    [Math.max(0, threshold - 0.2), threshold, Math.min(1, threshold + 0.2)],
-    [0.95, 1, 0.95]
-  );
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div ref={ref} className="relative pl-12 md:pl-0 md:w-1/2 md:pr-16 md:even:ml-auto md:even:pl-16 md:even:pr-0 pb-24 md:pb-32 last:pb-0">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative"
-      >
-        {/* Number marker for mobile */}
-        <div className="absolute -left-12 top-0 w-8 flex justify-center md:hidden">
-          <div className="text-[10px] tracking-[0.2em] font-medium text-[var(--text-tertiary)] mt-2">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50, scale: 0.98 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 1.0, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="relative p-5 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-400"
+    >
+      <div className="flex items-start gap-4 sm:gap-5">
+        <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[var(--accent-light)] flex items-center justify-center">
+          <span className="text-[13px] sm:text-[15px] font-bold text-[var(--accent)]">
             {step.number}
-          </div>
-        </div>
-
-        <h3 className="heading-editorial-sm text-2xl lg:text-3xl text-[var(--text-primary)] mb-4">
-          <span className="hidden md:inline-block text-[var(--text-tertiary)] mr-4 text-xl opacity-70">
-            {step.number}.
           </span>
-          {step.title}
-        </h3>
-        <p className="text-[15px] text-[var(--text-tertiary)] font-light leading-relaxed">
-          {step.description}
-        </p>
-      </motion.div>
-
-      {/* Center timeline dot for desktop */}
-      <motion.div
-        suppressHydrationWarning
-        style={{ 
-          opacity: opacity as any, 
-          scale: scale as any,
-          right: index % 2 === 0 ? "-6px" : undefined,
-          left: index % 2 !== 0 ? "-6px" : undefined
-        }}
-        className="hidden md:block absolute top-2 w-3 h-3 rounded-full bg-[var(--text-secondary)] z-10"
-      />
-    </div>
+        </div>
+        <div>
+          <h3 className="text-h3 text-[var(--text-primary)] mb-1.5 sm:mb-2">
+            {step.title}
+          </h3>
+          <p className="text-body leading-relaxed">
+            {step.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
 export default function Process() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
-  });
-
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section
       id="process"
-      className="relative z-20 bg-[var(--bg-primary)] pt-[8rem] md:pt-[14rem] pb-24 md:pb-[10rem] overflow-hidden"
+      className="relative z-20 bg-[var(--bg-primary)] py-16 sm:py-24 md:py-32 overflow-hidden"
     >
       {/* Section Header */}
-      <div ref={headerRef} className="max-w-7xl mx-auto px-6 md:px-8 mb-16 md:mb-32 text-center sidebar-safe">
+      <div ref={headerRef} className="max-w-3xl mx-auto px-5 sm:px-6 md:px-8 mb-10 sm:mb-14 md:mb-20 text-center">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs tracking-[0.4em] uppercase text-[var(--text-tertiary)] mb-6 font-light"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-caption text-[var(--accent)] mb-3 sm:mb-4"
         >
           Our Methodology
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="heading-editorial text-4xl md:text-5xl lg:text-7xl text-[var(--text-primary)]"
+          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="text-h2 text-[var(--text-primary)]"
         >
-          The Blueprint For
-          <br />
-          <span className="text-[var(--text-secondary)]">Digital Growth</span>
+          The blueprint for{" "}
+          <span className="text-[var(--text-tertiary)]">digital growth</span>
         </motion.h2>
       </div>
 
-      {/* Timeline */}
-      <div ref={containerRef} className="max-w-4xl mx-auto relative sidebar-safe">
-        {/* Center Line Desktop */}
-        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/[0.04]">
-          <motion.div
-            className="absolute top-0 left-0 w-full bg-[var(--text-secondary)]"
-            style={{ height: lineHeight }}
-          />
-        </div>
-
-        {/* Left Line Mobile */}
-        <div className="absolute top-0 bottom-0 left-4 w-[1px] bg-white/[0.04] md:hidden">
-          <motion.div
-            className="absolute top-0 left-0 w-full bg-[var(--text-secondary)]"
-            style={{ height: lineHeight }}
-          />
-        </div>
-
-        {/* Steps */}
-        <div className="relative z-10 px-6 md:px-0">
-          {steps.map((step, index) => (
-            <ProcessStep
-              key={step.number}
-              step={step}
-              index={index}
-              progress={scrollYProgress}
-            />
-          ))}
-        </div>
+      {/* Steps Grid */}
+      <div className="max-w-3xl mx-auto px-5 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        {steps.map((step, index) => (
+          <ProcessStep key={step.number} step={step} index={index} />
+        ))}
       </div>
     </section>
   );
