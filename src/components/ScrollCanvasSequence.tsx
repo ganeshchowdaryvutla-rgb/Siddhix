@@ -54,25 +54,7 @@ export default function ScrollCanvasSequence() {
 
   return (
     <>
-      {/* Loading Screen */}
-      {!isLoaded && (
-        <div className="fixed inset-0 z-[100] bg-[var(--bg-primary)] flex flex-col items-center justify-center px-6">
-          <div className="relative flex flex-col items-center">
-            <p className="text-caption text-[var(--text-tertiary)] tracking-[0.2em] mb-8">
-              Loading Experience
-            </p>
-            <div className="w-40 sm:w-48 h-[2px] bg-white/10 rounded-full overflow-hidden mb-3">
-              <div
-                className="h-full bg-[var(--accent)] transition-all duration-300 ease-out rounded-full"
-                style={{ width: `${loadingProgress}%` }}
-              />
-            </div>
-            <div className="text-caption text-[var(--text-tertiary)] tabular-nums tracking-wider">
-              {loadingProgress}%
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* Main Sequence Container */}
       {/* React Wrapper: isolates GSAP pin-spacer DOM mutations from React to prevent removeChild errors */}
